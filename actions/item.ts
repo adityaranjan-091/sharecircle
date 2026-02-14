@@ -13,13 +13,14 @@ export async function createItem(formData: FormData) {
         const description = formData.get("description") as string | null;
         const price = formData.get("price") as string | null;
         const category = formData.get("category") as string | null;
+        const location = formData.get("location") as string | null;
         const owner = formData.get("owner") as string | null;
         const images = formData.getAll("images").filter(Boolean) as string[];
 
-        if (!title || !description || !price || !category || !owner) {
+        if (!title || !description || !price || !category || !location || !owner) {
             return {
                 success: false,
-                error: "Missing required fields: title, description, price, category, owner",
+                error: "Missing required fields: title, description, price, category, location, owner",
             };
         }
 
@@ -33,6 +34,7 @@ export async function createItem(formData: FormData) {
             description: description.trim(),
             price: parsedPrice,
             category: category.trim(),
+            location: location.trim(),
             images,
             owner,
         });
@@ -49,7 +51,7 @@ export async function createItem(formData: FormData) {
 }
 
 // ─── Read (list) ────────────────────────────────────────
-export async function getItems(category?: string, search?: string) {
+export async function getItems(category?: string, search?: string, location?: string) {
     try {
         await connectDB();
 
@@ -58,6 +60,10 @@ export async function getItems(category?: string, search?: string) {
 
         if (category && category !== "All") {
             filter.category = category;
+        }
+
+        if (location) {
+            filter.location = { $regex: location, $options: "i" };
         }
 
         if (search) {

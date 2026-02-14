@@ -74,8 +74,8 @@ export async function updateBookingStatus(
         booking.status = status;
         await booking.save();
 
-        // If returned, make the item available again
-        if (status === "returned") {
+        // If returned or rejected, make the item available again
+        if (status === "returned" || status === "rejected") {
             await Item.findByIdAndUpdate(booking.item, { available: true });
         }
 

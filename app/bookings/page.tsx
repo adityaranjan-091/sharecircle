@@ -13,6 +13,7 @@ const STATUS_VARIANTS: Record<string, "warning" | "success" | "info"> = {
     pending: "warning",
     approved: "success",
     returned: "info",
+    rejected: "danger",
 };
 
 export default function BookingsPage() {
@@ -120,13 +121,22 @@ export default function BookingsPage() {
 
                                 {/* Action buttons — only for lender */}
                                 {activeTab === "lent" && b.status === "pending" && (
-                                    <Button
-                                        variant="primary"
-                                        onClick={() => handleStatusUpdate(b._id, "approved")}
-                                        className="text-xs px-3 py-1.5"
-                                    >
-                                        Approve
-                                    </Button>
+                                    <div className="flex gap-2">
+                                        <Button
+                                            variant="primary"
+                                            onClick={() => handleStatusUpdate(b._id, "approved")}
+                                            className="text-xs px-3 py-1.5"
+                                        >
+                                            Approve
+                                        </Button>
+                                        <Button
+                                            variant="danger"
+                                            onClick={() => handleStatusUpdate(b._id, "rejected")}
+                                            className="text-xs px-3 py-1.5"
+                                        >
+                                            Reject
+                                        </Button>
+                                    </div>
                                 )}
                                 {activeTab === "lent" && b.status === "approved" && (
                                     <Button

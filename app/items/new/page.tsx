@@ -104,6 +104,19 @@ export default function NewItemPage() {
                     </div>
 
                     <div className="space-y-1.5">
+                        <label htmlFor="location" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                            Location
+                        </label>
+                        <input
+                            id="location"
+                            name="location"
+                            required
+                            placeholder="e.g. City, Neighborhood"
+                            className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2.5 text-sm outline-none transition-colors focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
+                        />
+                    </div>
+
+                    <div className="space-y-1.5">
                         <label htmlFor="category" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                             Category
                         </label>

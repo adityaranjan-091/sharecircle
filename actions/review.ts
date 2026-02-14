@@ -3,6 +3,22 @@
 import { revalidatePath } from "next/cache";
 import { connectDB } from "@/lib/db";
 import Review from "@/models/Review";
+import Booking from "@/models/Booking";
+
+export async function hasUserBookedItem(userId: string, itemId: string) {
+    try {
+        await connectDB();
+        const booking = await Booking.findOne({
+            item: itemId,
+            borrower: userId,
+            status: "returned",
+        });
+        return !!booking;
+    } catch (error) {
+        console.error("hasUserBookedItem error:", error);
+        return false;
+    }
+}
 
 export async function createReview(formData: FormData) {
     try {

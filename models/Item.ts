@@ -23,6 +23,11 @@ const ItemSchema = new Schema<IItem>(
             required: [true, "Category is required"],
             trim: true,
         },
+        location: {
+            type: String,
+            required: [true, "Location is required"],
+            trim: true,
+        },
         images: {
             type: [String],
             default: [],

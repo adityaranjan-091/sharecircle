@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Github, Twitter, Linkedin } from "lucide-react";
 
 export default function Footer() {
@@ -13,15 +14,19 @@ export default function Footer() {
         <div className="grid gap-8 py-12 md:grid-cols-4">
           {/* Brand Section */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-white">
-                <span className="text-sm font-bold">SC</span>
-              </div>
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/logo.png"
+                alt="ShareCircle Logo"
+                width={32}
+                height={32}
+                className="rounded-lg object-contain"
+              />
               <div className="text-base font-bold tracking-tight">
                 <span className="text-teal-700">Share</span>
                 <span className="text-emerald-600">Circle</span>
               </div>
-            </div>
+            </Link>
             <p className="text-sm text-zinc-600 dark:text-zinc-400">
               Connecting neighbors, building community, and sharing resources.
             </p>

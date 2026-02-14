@@ -17,6 +17,7 @@ export interface IItem extends Document {
     description: string;
     price: number;
     category: string;
+    location: string;
     images: string[];
     owner: Types.ObjectId;
     available: boolean;

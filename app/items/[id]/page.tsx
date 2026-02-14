@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useUser } from "@/components/UserProvider";
 import { getItemById } from "@/actions/item";
 import { createBooking } from "@/actions/booking";
-import { createReview, getReviewsByItem } from "@/actions/review";
+import { createReview, getReviewsByItem, hasUserBookedItem } from "@/actions/review";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
 import {
@@ -34,6 +34,7 @@ export default function ItemDetailPage() {
     const [booking, setBooking] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+    const [hasBooked, setHasBooked] = useState(false);
 
     // Review form state
     const [reviewRating, setReviewRating] = useState(5);
@@ -50,10 +51,16 @@ export default function ItemDetailPage() {
             ]);
             setItem(data);
             setReviews(revs);
+
+            if (currentUser) {
+                const booked = await hasUserBookedItem(currentUser._id, params.id as string);
+                setHasBooked(booked);
+            }
+
             setLoading(false);
         }
         load();
-    }, [params.id]);
+    }, [params.id, currentUser]);
 
     async function handleBooking(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -279,7 +286,7 @@ export default function ItemDetailPage() {
                 </h2>
 
                 {/* Review Form */}
-                {!isOwner && !reviewSuccess && (
+                {!isOwner && !reviewSuccess && hasBooked && (
                     <form
                         onSubmit={handleReview}
                         className="space-y-3 rounded-lg border border-zinc-200 p-4 dark:border-zinc-700"

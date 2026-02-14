@@ -10,7 +10,7 @@ import { IItem } from "@/types";
 export async function submitUserReview(formData: FormData) {
   try {
     const session = await auth();
-    if (!session?.user?.id) {
+    if (!session || !session.user || !session.user.id) {
       return { success: false, error: "Unauthorized" };
     }
     const reviewerId = session.user.id;
@@ -45,7 +45,7 @@ export async function submitUserReview(formData: FormData) {
 
     // Re-fetch with populate
     const fullBooking = await Booking.findById(bookingId).populate<{
-      item: any;
+      item: unknown;
     }>("item");
 
     if (!fullBooking) {

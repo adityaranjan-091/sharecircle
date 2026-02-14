@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { connectDB } from "@/lib/db";
+import User from "@/models/User";
 import Booking from "@/models/Booking";
 import Item from "@/models/Item";
 import type { BookingStatus } from "@/types";
@@ -37,11 +38,40 @@ export async function createBooking(formData: FormData) {
             return { success: false, error: "You cannot borrow your own item" };
         }
 
+        // Calculate total price
+        const diffTime = Math.abs(end.getTime() - start.getTime());
+        const durationDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        // Ensure at least 1 day if start and end are same (or relying on UI to prevent same-day start/end with 0 duration)
+        // Check if duration is 0? If start == end, duration is 0?
+        // Logic: if start = today, end = tomorrow, duration is 1 day.
+        // If start = today, end = today, duration is 0? 
+        // User input ensures end > start (line 26).
+        // Let's assume minimum 1 day if diff is small, but calc should work.
+
+        const totalPrice = durationDays * item.price;
+
+        // Check borrower credits
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const user = await User.findById(borrower) as any;
+        if (!user) return { success: false, error: "Borrower not found" };
+
+        if (user.credits < totalPrice) {
+            return {
+                success: false,
+                error: `Insufficient credits. You need ${totalPrice} credits but have ${user.credits}.`
+            };
+        }
+
+        // Deduct credits
+        user.credits -= totalPrice;
+        await user.save();
+
         await Booking.create({
             item: itemId,
             borrower,
             startDate: start,
             endDate: end,
+            totalPrice,
             status: "pending",
         });
 
@@ -68,15 +98,39 @@ export async function updateBookingStatus(
     try {
         await connectDB();
 
-        const booking = await Booking.findById(bookingId);
+        const booking = await Booking.findById(bookingId).populate("item");
         if (!booking) return { success: false, error: "Booking not found" };
+
+        // Handle Status Changes & Credits
+        const price = booking.totalPrice || 0;
+
+        if (booking.status === "pending") {
+            if (status === "approved") {
+                // Transfer credits to owner
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const item = booking.item as any;
+                await User.findByIdAndUpdate(item.owner, {
+                    $inc: { credits: price }
+                });
+            } else if (status === "rejected") {
+                // Refund borrower
+                await User.findByIdAndUpdate(booking.borrower, {
+                    $inc: { credits: price }
+                });
+            }
+        }
+
+        // Ensure totalPrice exists to satisfy schema validation for legacy bookings
+        if (booking.totalPrice === undefined) {
+            booking.totalPrice = 0;
+        }
 
         booking.status = status;
         await booking.save();
 
         // If returned or rejected, make the item available again
         if (status === "returned" || status === "rejected") {
-            await Item.findByIdAndUpdate(booking.item, { available: true });
+            await Item.findByIdAndUpdate(booking.item._id, { available: true });
         }
 
         revalidatePath("/");

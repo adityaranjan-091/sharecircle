@@ -43,6 +43,27 @@ export default function ItemDetailPage() {
     const [reviewError, setReviewError] = useState("");
     const [reviewSuccess, setReviewSuccess] = useState(false);
 
+    // Dynamic cost calculation
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    useEffect(() => {
+        if (startDate && endDate && item) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            if (end > start) {
+                const diffTime = Math.abs(end.getTime() - start.getTime());
+                const durationDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                setTotalPrice(durationDays * item.price);
+            } else {
+                setTotalPrice(0);
+            }
+        } else {
+            setTotalPrice(0);
+        }
+    }, [startDate, endDate, item]);
+
     useEffect(() => {
         async function load() {
             const [data, revs] = await Promise.all([
@@ -240,6 +261,8 @@ export default function ItemDetailPage() {
                                         name="startDate"
                                         required
                                         min={new Date().toISOString().split("T")[0]}
+                                        value={startDate}
+                                        onChange={(e) => setStartDate(e.target.value)}
                                         className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
                                     />
                                 </div>
@@ -251,13 +274,34 @@ export default function ItemDetailPage() {
                                         type="date"
                                         name="endDate"
                                         required
-                                        min={new Date().toISOString().split("T")[0]}
+                                        min={startDate || new Date().toISOString().split("T")[0]}
+                                        value={endDate}
+                                        onChange={(e) => setEndDate(e.target.value)}
                                         className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
                                     />
                                 </div>
                             </div>
 
-                            <Button type="submit" loading={booking} className="w-full">
+                            {totalPrice > 0 && (
+                                <div className="rounded-lg bg-zinc-50 p-3 dark:bg-zinc-800">
+                                    <div className="flex justify-between text-sm font-medium">
+                                        <span>Total Cost</span>
+                                        <span className="text-teal-600 dark:text-teal-400">{totalPrice} credits</span>
+                                    </div>
+                                    {currentUser && currentUser.credits < totalPrice && (
+                                        <p className="text-xs text-red-500 mt-2 font-medium">
+                                            Insufficient credits (Balance: {currentUser.credits})
+                                        </p>
+                                    )}
+                                </div>
+                            )}
+
+                            <Button
+                                type="submit"
+                                loading={booking}
+                                className="w-full"
+                                disabled={currentUser && currentUser.credits < totalPrice}
+                            >
                                 Send Borrow Request
                             </Button>
                         </form>

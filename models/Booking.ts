@@ -21,6 +21,10 @@ const BookingSchema = new Schema<IBooking>(
             type: Date,
             required: [true, "End date is required"],
         },
+        totalPrice: {
+            type: Number,
+            required: [true, "Total price is required"],
+        },
         status: {
             type: String,
             enum: ["pending", "approved", "returned", "rejected"],

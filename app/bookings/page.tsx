@@ -9,6 +9,7 @@ import { ClipboardList, ArrowRightLeft, Package } from "lucide-react";
 import { format } from "date-fns";
 import type { BookingStatus } from "@/types";
 import ReviewModal from "@/components/ReviewModal";
+import UserReviewsModal from "@/components/UserReviewsModal";
 
 const STATUS_VARIANTS: Record<string, "warning" | "success" | "info" | "danger" | "default"> = {
     pending: "warning",
@@ -27,6 +28,8 @@ export default function BookingsPage() {
     const [activeTab, setActiveTab] = useState<"borrowed" | "lent">("borrowed");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [reviewingItem, setReviewingItem] = useState<any>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [viewingReviewsFor, setViewingReviewsFor] = useState<any>(null);
 
     useEffect(() => {
         async function load() {
@@ -112,7 +115,15 @@ export default function BookingsPage() {
                                         <p className="text-xs text-zinc-400">Owner: {b.item.owner.name}</p>
                                     )}
                                     {activeTab === "lent" && b.borrower && (
-                                        <p className="text-xs text-zinc-400">Borrower: {b.borrower.name}</p>
+                                        <div className="flex items-center gap-2">
+                                            <p className="text-xs text-zinc-400">Borrower: {b.borrower.name}</p>
+                                            <button
+                                                onClick={() => setViewingReviewsFor({ id: b.borrower._id, name: b.borrower.name })}
+                                                className="text-xs text-teal-600 hover:underline dark:text-teal-400"
+                                            >
+                                                View Reviews
+                                            </button>
+                                        </div>
                                     )}
                                 </div>
                             </div>
@@ -185,6 +196,13 @@ export default function BookingsPage() {
                     userId={currentUser._id}
                     onClose={() => setReviewingItem(null)}
                     onSuccess={() => setReviewingItem(null)}
+                />
+            )}
+            {viewingReviewsFor && (
+                <UserReviewsModal
+                    userId={viewingReviewsFor.id}
+                    userName={viewingReviewsFor.name}
+                    onClose={() => setViewingReviewsFor(null)}
                 />
             )}
         </div>

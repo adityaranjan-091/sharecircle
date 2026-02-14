@@ -16,6 +16,7 @@ import {
   BarChart,
   HelpCircle,
   Home,
+  History,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +28,7 @@ const NAV_LINKS = [
   { href: "/browse", label: "Browse", icon: CircleDot },
   { href: "/items/new", label: "List Item", icon: Plus },
   { href: "/bookings", label: "Bookings", icon: ClipboardList },
+  { href: "/history", label: "History", icon: History },
 ];
 
 export default function Navbar() {
@@ -100,31 +102,33 @@ export default function Navbar() {
           ) : currentUser ? (
             <>
               {/* User info */}
-              <div className="hidden items-center gap-2.5 rounded-xl bg-zinc-50 px-3 py-1.5 ring-1 ring-zinc-200/60 dark:bg-zinc-900 dark:ring-zinc-800/60 sm:flex">
-                <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 text-sm font-semibold text-white shadow-sm ring-2 ring-white dark:ring-zinc-900">
-                  {currentUser.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={currentUser.image}
-                      alt={currentUser.name}
-                      className="h-8 w-8 rounded-full object-cover"
-                    />
-                  ) : (
-                    currentUser.name?.charAt(0).toUpperCase()
-                  )}
+              <Link href={`/profile/${currentUser._id}`}>
+                <div className="hidden items-center gap-2.5 rounded-xl bg-zinc-50 px-3 py-1.5 ring-1 ring-zinc-200/60 transition-all hover:bg-zinc-100 hover:ring-zinc-300 dark:bg-zinc-900 dark:ring-zinc-800/60 dark:hover:bg-zinc-800 dark:hover:ring-zinc-700 sm:flex">
+                  <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 text-sm font-semibold text-white shadow-sm ring-2 ring-white dark:ring-zinc-900">
+                    {currentUser.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={currentUser.image}
+                        alt={currentUser.name}
+                        className="h-8 w-8 rounded-full object-cover"
+                      />
+                    ) : (
+                      currentUser.name?.charAt(0).toUpperCase()
+                    )}
+                  </div>
+                  <div className="text-sm leading-tight">
+                    <p className="font-semibold text-zinc-800 dark:text-zinc-200">
+                      {currentUser.name}
+                    </p>
+                    <p className="text-xs text-zinc-400 dark:text-zinc-500">
+                      <span className="font-medium text-teal-600 dark:text-teal-400">
+                        {currentUser.credits}
+                      </span>{" "}
+                      credits
+                    </p>
+                  </div>
                 </div>
-                <div className="text-sm leading-tight">
-                  <p className="font-semibold text-zinc-800 dark:text-zinc-200">
-                    {currentUser.name}
-                  </p>
-                  <p className="text-xs text-zinc-400 dark:text-zinc-500">
-                    <span className="font-medium text-teal-600 dark:text-teal-400">
-                      {currentUser.credits}
-                    </span>{" "}
-                    credits
-                  </p>
-                </div>
-              </div>
+              </Link>
 
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}

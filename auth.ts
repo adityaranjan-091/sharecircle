@@ -77,7 +77,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             name: decoded.name || "Google User",
             email,
             image: decoded.picture || "",
-            credits: 0,
+            credits: 100,
           });
         }
 

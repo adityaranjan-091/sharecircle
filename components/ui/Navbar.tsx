@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useUser } from "@/components/UserProvider";
@@ -11,11 +12,19 @@ import {
   LogIn,
   LogOut,
   User,
+  Info,
+  BarChart,
+  HelpCircle,
+  Home,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { href: "/", label: "Browse", icon: CircleDot },
+  { href: "/", label: "Home", icon: Home },
+  { href: "/#about", label: "About", icon: Info },
+  { href: "/#impact", label: "Impact", icon: BarChart },
+  { href: "/#faqs", label: "FAQs", icon: HelpCircle },
+  { href: "/browse", label: "Browse", icon: CircleDot },
   { href: "/items/new", label: "List Item", icon: Plus },
   { href: "/bookings", label: "Bookings", icon: ClipboardList },
 ];
@@ -29,9 +38,13 @@ export default function Navbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-teal-600 text-white">
-            <CircleDot className="h-5 w-5" />
-          </div>
+          <Image
+            src="/logo.png"
+            alt="ShareCircle Logo"
+            width={36}
+            height={36}
+            className="rounded-lg object-contain"
+          />
           <span className="text-lg font-bold tracking-tight">
             <span className="text-teal-700">Share</span>
             <span className="text-emerald-600">Circle</span>

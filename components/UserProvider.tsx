@@ -27,7 +27,7 @@ function UserContextBridge({ children }: { children: ReactNode }) {
             name: session.user.name,
             email: session.user.email,
             image: session.user.image,
-            credits: (session.user as Record<string, unknown>).credits ?? 50,
+            credits: (session.user as any).credits ?? 50,
         }
         : null;
 

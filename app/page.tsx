@@ -1,103 +1,101 @@
-import { getItems } from "@/actions/item";
-import ItemCard from "@/components/ui/ItemCard";
-import { Search, Sparkles } from "lucide-react";
+import {
+  Search,
+  Sparkles,
+  ArrowRight,
+  Users,
+  Leaf,
+  DollarSign,
+} from "lucide-react";
+import AboutSection from "@/components/home/AboutSection";
+import ImpactSection from "@/components/home/ImpactSection";
+import FAQSection from "@/components/home/FAQSection";
 
-const CATEGORIES = ["All", "Tools", "Electronics", "Kitchen", "Garden", "Sports", "Books", "Other"];
-
-interface HomeProps {
-  searchParams: Promise<{ category?: string; search?: string }>;
-}
-
-export default async function Home({ searchParams }: HomeProps) {
-  const params = await searchParams;
-  const activeCategory = params.category || "All";
-  const searchQuery = params.search || "";
-  const items = await getItems(activeCategory, searchQuery);
-
+export default function Home() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-12 lg:space-y-16">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-600 via-teal-700 to-emerald-800 px-6 py-12 text-white sm:px-12 sm:py-16">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iNCIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-        <div className="relative space-y-4">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5" />
-            <span className="text-sm font-medium text-teal-200">Community Sharing Platform</span>
-          </div>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            Borrow from neighbors,<br />
-            <span className="text-teal-200">not from stores.</span>
-          </h1>
-          <p className="max-w-lg text-teal-100">
-            ShareCircle connects you with neighbors who have the tools and equipment you need.
-            Save money, reduce waste, build community.
-          </p>
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-600 via-teal-700 to-emerald-800 px-8 py-16 text-white shadow-2xl sm:px-12 sm:py-20 lg:py-24">
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute h-96 w-96 -top-48 -left-48 rounded-full bg-teal-500 blur-3xl animate-pulse" />
+          <div className="absolute h-96 w-96 -bottom-48 -right-48 rounded-full bg-emerald-500 blur-3xl animate-pulse animation-delay-2000" />
         </div>
+
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iNCIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
+
+        <div className="relative">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+              <Sparkles className="h-4 w-4 text-yellow-300 animate-pulse" />
+              <span className="text-sm font-medium text-teal-100">
+                Community Sharing Platform
+              </span>
+            </div>
+
+            {/* Main heading */}
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl">
+              <span className="block">Borrow from neighbors,</span>
+              <span className="block mt-2 bg-gradient-to-r from-teal-200 to-yellow-200 bg-clip-text text-transparent">
+                not from stores.
+              </span>
+            </h1>
+
+            {/* Description */}
+            <p className="max-w-2xl mx-auto text-lg sm:text-xl text-teal-50/90 leading-relaxed">
+              ShareCircle connects you with neighbors who have the tools and
+              equipment you need. Save money, reduce waste, and build meaningful
+              community connections.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <button className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-teal-700 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                <Search className="h-5 w-5" />
+                Start Borrowing
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button className="inline-flex items-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-xl font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-200">
+                Learn More
+              </button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-8 pt-8 max-w-2xl mx-auto">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg mb-2">
+                  <Users className="h-6 w-6 text-teal-200" />
+                </div>
+                <div className="text-2xl font-bold text-white">5K+</div>
+                <div className="text-sm text-teal-200">Active Users</div>
+              </div>
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg mb-2">
+                  <DollarSign className="h-6 w-6 text-teal-200" />
+                </div>
+                <div className="text-2xl font-bold text-white">$50K</div>
+                <div className="text-sm text-teal-200">Saved Monthly</div>
+              </div>
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 backdrop-blur-sm rounded-lg mb-2">
+                  <Leaf className="h-6 w-6 text-teal-200" />
+                </div>
+                <div className="text-2xl font-bold text-white">2 Tons</div>
+                <div className="text-sm text-teal-200">CO₂ Reduced</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative elements */}
+        <div className="absolute top-10 right-10 w-20 h-20 border border-white/10 rounded-full animate-spin-slow" />
+        <div className="absolute bottom-10 left-10 w-16 h-16 border border-white/10 rounded-full animate-spin-slow animation-delay-1000" />
       </section>
 
-      {/* Search + Filter */}
-      <div className="space-y-4">
-        <form className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
-          <input
-            type="text"
-            name="search"
-            defaultValue={searchQuery}
-            placeholder="Search items..."
-            className="w-full rounded-lg border border-zinc-200 bg-white py-2.5 pl-10 pr-4 text-sm outline-none transition-colors focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100"
-          />
-          {activeCategory !== "All" && (
-            <input type="hidden" name="category" value={activeCategory} />
-          )}
-        </form>
-
-        <div className="flex flex-wrap gap-2">
-          {CATEGORIES.map((cat) => (
-            <a
-              key={cat}
-              href={`/?category=${cat}${searchQuery ? `&search=${searchQuery}` : ""}`}
-              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${activeCategory === cat
-                ? "bg-teal-600 text-white"
-                : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
-                }`}
-            >
-              {cat}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Items Grid */}
-      {items.length > 0 ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-          {items.map((item: any) => (
-            <ItemCard
-              key={item._id}
-              id={item._id}
-              title={item.title}
-              description={item.description}
-              price={item.price}
-              category={item.category}
-              images={item.images}
-              available={item.available}
-              ownerName={item.owner?.name}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-zinc-200 py-16 dark:border-zinc-800">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
-            <Search className="h-7 w-7 text-zinc-400" />
-          </div>
-          <h3 className="mt-4 text-lg font-semibold text-zinc-700 dark:text-zinc-300">
-            No items yet
-          </h3>
-          <p className="mt-1 text-sm text-zinc-500">
-            Be the first to list an item for your community!
-          </p>
-        </div>
-      )}
+      <AboutSection />
+      <ImpactSection />
+      <FAQSection />
     </div>
   );
 }

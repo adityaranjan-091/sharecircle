@@ -44,6 +44,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: user.name,
           email: user.email,
           image: user.image,
+          credits: user.credits,
         };
       },
     }),
@@ -85,6 +86,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: user.name,
           email: user.email,
           image: user.image,
+          credits: user.credits,
         };
       },
     }),
@@ -113,7 +115,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (token.userId) {
         session.user.id = token.userId as string;
-        (session.user as Record<string, unknown>).credits = token.credits;
+        (session.user as any).credits = (token as any).credits;
       }
       return session;
     },

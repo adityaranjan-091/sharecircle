@@ -29,3 +29,18 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Custom animations */
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 20s linear infinite;
+  }
+
+  .animation-delay-1000 {
+    animation-delay: 1s;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+}

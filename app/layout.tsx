@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { UserProvider } from "@/components/UserProvider";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
+import { auth } from "@/auth";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,17 +21,19 @@ export const metadata: Metadata = {
   description: "Peer-to-peer tool lending platform",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <UserProvider>
+        <UserProvider session={session}>
           <Navbar />
           <main className="flex-1 w-full mx-auto max-w-6xl px-4 py-6 sm:px-6">
             {children}

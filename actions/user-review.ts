@@ -77,8 +77,8 @@ export async function submitUserReview(formData: FormData) {
       comment,
     });
 
-    // Revalidate the profile page of the borrower
-    revalidatePath(`/profile/${targetUserId}`);
+    // Revalidate the history page
+    revalidatePath("/history");
 
     return { success: true };
   } catch (error) {

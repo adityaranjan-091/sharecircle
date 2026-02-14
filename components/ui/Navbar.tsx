@@ -13,17 +13,17 @@ import {
   LogOut,
   User,
   Info,
-  BarChart,
   HelpCircle,
   Home,
   History,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getPendingLenderCount } from "@/actions/booking";
+import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home", icon: Home },
   { href: "/#about", label: "About", icon: Info },
-  { href: "/#impact", label: "Impact", icon: BarChart },
   { href: "/#faqs", label: "FAQs", icon: HelpCircle },
   { href: "/browse", label: "Browse", icon: CircleDot },
   { href: "/items/new", label: "List Item", icon: Plus },
@@ -34,6 +34,17 @@ const NAV_LINKS = [
 export default function Navbar() {
   const pathname = usePathname();
   const { currentUser, loading } = useUser();
+  const [pendingCount, setPendingCount] = useState(0);
+
+  useEffect(() => {
+    async function fetchCount() {
+      if (currentUser) {
+        const count = await getPendingLenderCount(currentUser._id);
+        setPendingCount(count);
+      }
+    }
+    fetchCount();
+  }, [currentUser, pathname]); // Refresh on navigation too
 
   return (
     <nav className="sticky top-0 z-50 border-b border-zinc-200/80 bg-white/75 shadow-sm shadow-zinc-200/20 backdrop-blur-xl dark:border-zinc-800/80 dark:bg-zinc-950/75 dark:shadow-zinc-900/20">
@@ -83,7 +94,14 @@ export default function Navbar() {
                       : "text-zinc-400 dark:text-zinc-500",
                   )}
                 />
-                {label}
+                <span className="relative">
+                  {label}
+                  {label === "Bookings" && pendingCount > 0 && (
+                    <span className="absolute -right-5 -top-3 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white shadow-sm ring-1 ring-white dark:ring-zinc-900">
+                      {pendingCount}
+                    </span>
+                  )}
+                </span>
               </Link>
             );
           })}
@@ -102,33 +120,31 @@ export default function Navbar() {
           ) : currentUser ? (
             <>
               {/* User info */}
-              <Link href={`/profile/${currentUser._id}`}>
-                <div className="hidden items-center gap-2.5 rounded-xl bg-zinc-50 px-3 py-1.5 ring-1 ring-zinc-200/60 transition-all hover:bg-zinc-100 hover:ring-zinc-300 dark:bg-zinc-900 dark:ring-zinc-800/60 dark:hover:bg-zinc-800 dark:hover:ring-zinc-700 sm:flex">
-                  <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 text-sm font-semibold text-white shadow-sm ring-2 ring-white dark:ring-zinc-900">
-                    {currentUser.image ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={currentUser.image}
-                        alt={currentUser.name}
-                        className="h-8 w-8 rounded-full object-cover"
-                      />
-                    ) : (
-                      currentUser.name?.charAt(0).toUpperCase()
-                    )}
-                  </div>
-                  <div className="text-sm leading-tight">
-                    <p className="font-semibold text-zinc-800 dark:text-zinc-200">
-                      {currentUser.name}
-                    </p>
-                    <p className="text-xs text-zinc-400 dark:text-zinc-500">
-                      <span className="font-medium text-teal-600 dark:text-teal-400">
-                        {currentUser.credits}
-                      </span>{" "}
-                      credits
-                    </p>
-                  </div>
+              <div className="hidden items-center gap-2.5 rounded-xl bg-zinc-50 px-3 py-1.5 ring-1 ring-zinc-200/60 dark:bg-zinc-900 dark:ring-zinc-800/60 sm:flex">
+                <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 text-sm font-semibold text-white shadow-sm ring-2 ring-white dark:ring-zinc-900">
+                  {currentUser.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={currentUser.image}
+                      alt={currentUser.name}
+                      className="h-8 w-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    currentUser.name?.charAt(0).toUpperCase()
+                  )}
                 </div>
-              </Link>
+                <div className="text-sm leading-tight">
+                  <p className="font-semibold text-zinc-800 dark:text-zinc-200">
+                    {currentUser.name}
+                  </p>
+                  <p className="text-xs text-zinc-400 dark:text-zinc-500">
+                    <span className="font-medium text-teal-600 dark:text-teal-400">
+                      {currentUser.credits}
+                    </span>{" "}
+                    credits
+                  </p>
+                </div>
+              </div>
 
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
@@ -184,7 +200,14 @@ export default function Navbar() {
                 )}
                 strokeWidth={isActive ? 2.5 : 2}
               />
-              {label}
+              <span className="relative">
+                {label}
+                {label === "Bookings" && pendingCount > 0 && (
+                  <span className="absolute -right-3 -top-2 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white shadow-sm ring-1 ring-white dark:ring-zinc-900 animate-pulse">
+                    {pendingCount}
+                  </span>
+                )}
+              </span>
             </Link>
           );
         })}

@@ -8,19 +8,19 @@ const DEMO_USERS = [
         name: "Alice Johnson",
         email: "alice@sharecircle.dev",
         image: "",
-        credits: 50,
+        credits: 100,
     },
     {
         name: "Bob Smith",
         email: "bob@sharecircle.dev",
         image: "",
-        credits: 50,
+        credits: 100,
     },
     {
         name: "Carol Lee",
         email: "carol@sharecircle.dev",
         image: "",
-        credits: 50,
+        credits: 100,
     },
 ];
 

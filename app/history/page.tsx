@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getUserHistory } from "@/actions/profile";
+import { getUserHistory } from "@/actions/booking";
 import Image from "next/image";
-import Link from "next/link";
+
 import UserReviewModal from "@/components/UserReviewModal";
 import Button from "@/components/ui/Button";
 
@@ -99,13 +99,7 @@ export default function HistoryPage() {
                 <div className="flex-1">
                   <h3 className="font-bold">{booking.item.title}</h3>
                   <p className="text-sm text-gray-500">
-                    Owner:{" "}
-                    <Link
-                      href={`/profile/${booking.item.owner._id}`}
-                      className="text-blue-500 hover:underline"
-                    >
-                      {booking.item.owner.name}
-                    </Link>
+                    Owner: <span className="font-medium text-gray-700">{booking.item.owner.name}</span>
                   </p>
                   <div className="flex gap-2 text-xs mt-1 text-gray-500">
                     <span>
@@ -121,15 +115,14 @@ export default function HistoryPage() {
                 </div>
                 <div className="flex flex-col items-end gap-2">
                   <span
-                    className={`px-2 py-1 rounded text-xs font-bold uppercase ${
-                      booking.status === "approved"
-                        ? "bg-green-100 text-green-700"
-                        : booking.status === "returned"
-                          ? "bg-blue-100 text-blue-700"
-                          : booking.status === "pending"
-                            ? "bg-yellow-100 text-yellow-700"
-                            : "bg-red-100 text-red-700"
-                    }`}
+                    className={`px-2 py-1 rounded text-xs font-bold uppercase ${booking.status === "approved"
+                      ? "bg-green-100 text-green-700"
+                      : booking.status === "returned"
+                        ? "bg-blue-100 text-blue-700"
+                        : booking.status === "pending"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
                   >
                     {booking.status}
                   </span>
@@ -158,13 +151,7 @@ export default function HistoryPage() {
               <div className="flex-1">
                 <h3 className="font-bold">{booking.item.title}</h3>
                 <p className="text-sm text-gray-500">
-                  Borrowed by:{" "}
-                  <Link
-                    href={`/profile/${booking.borrower._id}`}
-                    className="text-blue-500 hover:underline"
-                  >
-                    {booking.borrower.name}
-                  </Link>
+                  Borrowed by: <span className="font-medium text-gray-700">{booking.borrower.name}</span>
                 </p>
                 <div className="flex gap-2 text-xs mt-1 text-gray-500">
                   <span>
@@ -177,15 +164,14 @@ export default function HistoryPage() {
               </div>
               <div className="flex flex-col items-end gap-2">
                 <span
-                  className={`px-2 py-1 rounded text-xs font-bold uppercase ${
-                    booking.status === "approved"
-                      ? "bg-green-100 text-green-700"
-                      : booking.status === "returned"
-                        ? "bg-blue-100 text-blue-700"
-                        : booking.status === "pending"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "bg-red-100 text-red-700"
-                  }`}
+                  className={`px-2 py-1 rounded text-xs font-bold uppercase ${booking.status === "approved"
+                    ? "bg-green-100 text-green-700"
+                    : booking.status === "returned"
+                      ? "bg-blue-100 text-blue-700"
+                      : booking.status === "pending"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-red-100 text-red-700"
+                    }`}
                 >
                   {booking.status}
                 </span>

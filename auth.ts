@@ -99,12 +99,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     // Attach MongoDB user ID to the JWT token
     async jwt({ token, user }) {
-      if (user?.email) {
+      // First sign-in: map the user email to the MongoDB ID
+      if (user?.email && !token.userId) {
         await connectDB();
-
         const dbUser = await User.findOne({ email: user.email });
         if (dbUser) {
           token.userId = dbUser._id.toString();
+          token.credits = dbUser.credits;
+        }
+      }
+      // Always refresh credits from DB so the UI stays in sync
+      if (token.userId) {
+        await connectDB();
+        const dbUser = await User.findById(token.userId);
+        if (dbUser) {
           token.credits = dbUser.credits;
         }
       }

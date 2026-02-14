@@ -5,6 +5,7 @@ import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import Booking from "@/models/Booking";
 import Item from "@/models/Item";
+import { auth } from "@/auth";
 import type { BookingStatus } from "@/types";
 
 // ─── Create Booking ─────────────────────────────────────
@@ -105,19 +106,21 @@ export async function updateBookingStatus(
         const price = booking.totalPrice || 0;
 
         if (booking.status === "pending") {
-            if (status === "approved") {
-                // Transfer credits to owner
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const item = booking.item as any;
-                await User.findByIdAndUpdate(item.owner, {
-                    $inc: { credits: price }
-                });
-            } else if (status === "rejected") {
+            if (status === "rejected") {
                 // Refund borrower
                 await User.findByIdAndUpdate(booking.borrower, {
                     $inc: { credits: price }
                 });
             }
+        }
+
+        if (booking.status === "approved" && status === "returned") {
+            // Transfer credits to owner on return
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const item = booking.item as any;
+            await User.findByIdAndUpdate(item.owner, {
+                $inc: { credits: price }
+            });
         }
 
         // Ensure totalPrice exists to satisfy schema validation for legacy bookings
@@ -176,5 +179,61 @@ export async function getBookingsByUser(userId: string) {
     } catch (error) {
         console.error("getBookingsByUser error:", error);
         return { borrowed: [], lent: [] };
+    }
+}
+
+// ─── Get Pending Count for Lender ───────────────────────
+export async function getPendingLenderCount(userId: string) {
+    try {
+        await connectDB();
+        const items = await Item.find({ owner: userId }).select("_id");
+        const itemIds = items.map((i) => i._id);
+
+        const count = await Booking.countDocuments({
+            item: { $in: itemIds },
+            status: "pending",
+        });
+
+        return count;
+    } catch (error) {
+        console.error("getPendingLenderCount error:", error);
+        return 0;
+    }
+}
+
+// ─── Get User History ───────────────────────────────────
+export async function getUserHistory() {
+    try {
+        const session = await auth();
+        if (!session?.user) return null;
+
+        await connectDB();
+        const userId = session.user.id;
+
+        // 1. Items I borrowed
+        const borrowedBookings = await Booking.find({ borrower: userId })
+            .populate("item")
+            .populate({
+                path: "item",
+                populate: { path: "owner", select: "name image" },
+            })
+            .sort({ createdAt: -1 });
+
+        // 2. Items I lent (My items that are booked)
+        const myItems = await Item.find({ owner: userId });
+        const myItemIds = myItems.map((i) => i._id);
+
+        const lentBookings = await Booking.find({ item: { $in: myItemIds } })
+            .populate("item")
+            .populate("borrower", "name image")
+            .sort({ createdAt: -1 });
+
+        return {
+            borrowed: JSON.parse(JSON.stringify(borrowedBookings)),
+            lent: JSON.parse(JSON.stringify(lentBookings)),
+        };
+    } catch (error) {
+        console.error("Error fetching user history:", error);
+        return null;
     }
 }

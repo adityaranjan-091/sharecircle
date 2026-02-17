@@ -143,7 +143,7 @@ export default function ItemDetailPage() {
         return (
             <div className="flex flex-col items-center justify-center py-20 space-y-4">
                 <h2 className="text-xl font-semibold">Item not found</h2>
-                <Link href="/">
+                <Link href="/browse">
                     <Button variant="secondary">Back to Browse</Button>
                 </Link>
             </div>

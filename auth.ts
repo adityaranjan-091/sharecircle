@@ -4,8 +4,10 @@ import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import { verifyFirebaseIdToken } from "@/lib/firebaseAdmin";
+import { authConfig } from "./auth.config";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
   providers: [
     // ─── Email + Password ─────────────────────────────────
     Credentials({
@@ -92,11 +94,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
 
-  pages: {
-    signIn: "/auth/login",
-  },
-
   callbacks: {
+    ...authConfig.callbacks,
     // Attach MongoDB user ID to the JWT token
     async jwt({ token, user }) {
       // First sign-in: map the user email to the MongoDB ID
@@ -127,9 +126,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
-  },
-
-  session: {
-    strategy: "jwt",
   },
 });

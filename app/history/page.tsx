@@ -40,7 +40,9 @@ export default function HistoryPage() {
   if (loading) return <div className="p-8 text-center">Loading history...</div>;
   if (!history)
     return (
-      <div className="p-8 text-center">Please log in to view history.</div>
+      <div className="p-8 text-center text-red-500">
+        Failed to load history. Please try again.
+      </div>
     );
 
   const openReviewModal = (booking: any) => {

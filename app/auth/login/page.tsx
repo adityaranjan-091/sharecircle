@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { loginUser, loginWithGoogle } from "@/actions/auth";
 import Button from "@/components/ui/Button";
-import { Mail, Lock, ArrowRight, Sparkles } from "lucide-react";
+import { Mail, Lock, ArrowRight, Sparkles, Shield } from "lucide-react";
 import { auth, googleProvider } from "@/lib/firebaseClient";
 import { signInWithPopup } from "firebase/auth";
 
@@ -96,208 +96,223 @@ export default function SignInPage() {
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12">
       {/* Animated background elements */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-32 -top-32 h-96 w-96 animate-pulse rounded-full bg-teal-400/10 blur-3xl dark:bg-teal-400/5" />
-        <div className="absolute -right-32 top-1/3 h-80 w-80 animate-pulse rounded-full bg-cyan-400/10 blur-3xl delay-1000 dark:bg-cyan-400/5" />
-        <div className="absolute -bottom-32 left-1/3 h-72 w-72 animate-pulse rounded-full bg-emerald-400/10 blur-3xl delay-500 dark:bg-emerald-400/5" />
+        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] animate-pulse rounded-full bg-teal-400/8 blur-3xl dark:bg-teal-400/[0.03]" />
+        <div className="absolute -right-40 top-1/4 h-[400px] w-[400px] animate-pulse rounded-full bg-cyan-400/8 blur-3xl [animation-delay:1s] dark:bg-cyan-400/[0.03]" />
+        <div className="absolute -bottom-40 left-1/4 h-[450px] w-[450px] animate-pulse rounded-full bg-emerald-400/8 blur-3xl [animation-delay:2s] dark:bg-emerald-400/[0.03]" />
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNhMWExYWEiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIvPjwvZz48L2c+PC9zdmc+')] opacity-60" />
       </div>
 
-      <div className="relative w-full max-w-md">
+      <div className="relative w-full max-w-[440px]">
+        {/* Outer glow behind the card */}
+        <div className="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-teal-500/10 via-transparent to-emerald-500/10 blur-2xl dark:from-teal-500/5 dark:to-emerald-500/5" />
+
         {/* Card */}
-        <div className="relative rounded-3xl border border-zinc-200/80 bg-white/80 px-8 py-10 shadow-2xl shadow-zinc-200/50 backdrop-blur-xl dark:border-zinc-800/80 dark:bg-zinc-900/80 dark:shadow-zinc-900/50 sm:px-10 sm:py-12">
+        <div className="relative overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/90 shadow-2xl shadow-zinc-300/40 backdrop-blur-2xl dark:border-zinc-800/70 dark:bg-zinc-900/90 dark:shadow-zinc-950/60">
           {/* Decorative top gradient bar */}
-          <div className="absolute left-0 right-0 top-0 h-1 overflow-hidden rounded-t-3xl">
-            <div className="h-full w-full bg-gradient-to-r from-teal-400 via-cyan-500 to-emerald-500" />
-          </div>
 
-          {/* Header with real logo */}
-          <div className="mb-8 text-center">
-            <div className="group relative mx-auto flex h-16 w-16 items-center justify-center">
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-teal-400 to-emerald-500 opacity-20 blur-lg transition-all duration-500 group-hover:opacity-40 group-hover:blur-xl" />
-              <div className="relative h-16 w-16 overflow-hidden rounded-2xl shadow-lg shadow-teal-500/30 transition-transform duration-300 group-hover:scale-105">
-                <Image
-                  src="/logo.png"
-                  alt="ShareCircle Logo"
-                  width={64}
-                  height={64}
-                  className="h-full w-full object-cover"
-                  priority
-                />
-              </div>
-            </div>
-            <h1 className="mt-5 text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl">
-              Welcome back
-            </h1>
-            <p className="mt-2 flex items-center justify-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400">
-              <Sparkles className="h-3.5 w-3.5 text-teal-500" />
-              Sign in to your ShareCircle account
-            </p>
-          </div>
-
-          {/* Google Sign In — Professional Style */}
-          <button
-            type="button"
-            onClick={handleGoogle}
-            disabled={googleLoading}
-            className="group relative flex w-full items-center justify-center gap-3 rounded-lg border border-zinc-300 bg-white px-4 py-3 text-sm font-medium text-zinc-700 shadow-sm transition-all duration-200 hover:border-zinc-400 hover:bg-zinc-50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:border-zinc-500 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600 dark:focus:ring-offset-zinc-900"
-          >
-            {googleLoading ? (
-              <svg
-                className="h-5 w-5 animate-spin text-zinc-400"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                />
-              </svg>
-            ) : (
-              <GoogleIcon className="h-5 w-5" />
-            )}
-            <span>{googleLoading ? "Signing in…" : "Sign in with Google"}</span>
-          </button>
-
-          {/* Divider */}
-          <div className="relative my-7">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-zinc-200 dark:border-zinc-700/70" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase tracking-wider">
-              <span className="bg-white/80 px-3 text-zinc-400 backdrop-blur-sm dark:bg-zinc-900/80 dark:text-zinc-500">
-                or sign in with email
-              </span>
-            </div>
-          </div>
-
-          {/* Credentials Form */}
-          <form onSubmit={handleCredentials} className="space-y-4">
-            {error && (
-              <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50/80 px-4 py-3.5 text-sm text-red-700 backdrop-blur-sm dark:border-red-800/60 dark:bg-red-900/20 dark:text-red-400">
-                <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/40">
-                  <span className="text-xs font-bold">!</span>
+          <div className="px-8 py-10 sm:px-10 sm:py-12">
+            {/* Header with real logo */}
+            <div className="mb-10 text-center">
+              <div className="group relative mx-auto flex h-20 w-20 items-center justify-center">
+                {/* Glow ring */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-teal-400 to-emerald-500 opacity-20 blur-xl transition-all duration-500 group-hover:opacity-35 group-hover:blur-2xl" />
+                {/* Gradient border wrapper */}
+                <div className="relative rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 p-[2.5px] shadow-xl shadow-teal-500/25 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
+                  <div className="rounded-[13px] bg-white p-1.5 dark:bg-zinc-900">
+                    <Image
+                      src="/logo.png"
+                      alt="ShareCircle Logo"
+                      width={56}
+                      height={56}
+                      className="rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
+                      priority
+                    />
+                  </div>
                 </div>
-                {error}
               </div>
-            )}
 
-            {/* Email */}
-            <div className="space-y-1.5">
-              <label
-                htmlFor="email"
-                className={`text-sm font-medium transition-colors duration-200 ${
-                  focusedField === "email"
-                    ? "text-teal-600 dark:text-teal-400"
-                    : "text-zinc-700 dark:text-zinc-300"
-                }`}
-              >
-                Email
-              </label>
-              <div className="group relative">
-                <Mail
-                  className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-200 ${
-                    focusedField === "email"
-                      ? "text-teal-500"
-                      : "text-zinc-400 dark:text-zinc-500"
-                  }`}
-                />
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder="you@example.com"
-                  onFocus={() => setFocusedField("email")}
-                  onBlur={() => setFocusedField(null)}
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-50/50 py-3 pl-11 pr-4 text-sm outline-none transition-all duration-200 placeholder:text-zinc-400 hover:border-zinc-300 focus:border-teal-500 focus:bg-white focus:shadow-sm focus:shadow-teal-500/10 focus:ring-2 focus:ring-teal-500/20 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:hover:border-zinc-600 dark:focus:border-teal-500 dark:focus:bg-zinc-800"
-                />
+              <h1 className="mt-6 text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-3xl">
+                Welcome back
+              </h1>
+              <p className="mt-2.5 flex items-center justify-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+                <Sparkles className="h-3.5 w-3.5 text-teal-500" />
+                Sign in to your ShareCircle account
+              </p>
+            </div>
+
+            {/* Google Sign In */}
+            <button
+              type="button"
+              onClick={handleGoogle}
+              disabled={googleLoading}
+              className="group relative flex w-full items-center justify-center gap-3 rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-sm font-semibold text-zinc-700 shadow-sm transition-all duration-200 hover:border-zinc-300 hover:bg-zinc-50 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:ring-offset-2 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-700 dark:bg-zinc-800/80 dark:text-zinc-200 dark:hover:border-zinc-600 dark:hover:bg-zinc-800 dark:focus:ring-offset-zinc-900"
+            >
+              {googleLoading ? (
+                <svg
+                  className="h-5 w-5 animate-spin text-zinc-400"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+              ) : (
+                <GoogleIcon className="h-5 w-5" />
+              )}
+              <span>
+                {googleLoading ? "Signing in…" : "Continue with Google"}
+              </span>
+            </button>
+
+            {/* Divider */}
+            <div className="relative my-8">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-zinc-200/80 dark:border-zinc-700/60" />
+              </div>
+              <div className="relative flex justify-center">
+                <span className="bg-white/90 px-4 text-xs font-medium uppercase tracking-widest text-zinc-400 backdrop-blur-sm dark:bg-zinc-900/90 dark:text-zinc-500">
+                  or
+                </span>
               </div>
             </div>
 
-            {/* Password */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
+            {/* Credentials Form */}
+            <form onSubmit={handleCredentials} className="space-y-5">
+              {error && (
+                <div className="flex items-start gap-3 rounded-2xl border border-red-200/80 bg-red-50/60 px-4 py-3.5 text-sm text-red-700 backdrop-blur-sm dark:border-red-800/50 dark:bg-red-900/15 dark:text-red-400">
+                  <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/40">
+                    <span className="text-xs font-bold">!</span>
+                  </div>
+                  <span className="leading-relaxed">{error}</span>
+                </div>
+              )}
+
+              {/* Email */}
+              <div className="space-y-2">
                 <label
-                  htmlFor="password"
-                  className={`text-sm font-medium transition-colors duration-200 ${
-                    focusedField === "password"
+                  htmlFor="email"
+                  className={`text-sm font-semibold transition-colors duration-200 ${focusedField === "email"
                       ? "text-teal-600 dark:text-teal-400"
                       : "text-zinc-700 dark:text-zinc-300"
-                  }`}
+                    }`}
                 >
-                  Password
+                  Email address
                 </label>
-                <Link
-                  href="/auth/forgot-password"
-                  className="text-xs font-medium text-teal-600 transition-colors duration-200 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300"
+                <div className="group relative">
+                  <div
+                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${focusedField === "email"
+                        ? "text-teal-500"
+                        : "text-zinc-400 dark:text-zinc-500"
+                      }`}
+                  >
+                    <Mail className="h-[18px] w-[18px]" />
+                  </div>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    placeholder="you@example.com"
+                    onFocus={() => setFocusedField("email")}
+                    onBlur={() => setFocusedField(null)}
+                    className="w-full rounded-2xl border border-zinc-200 bg-zinc-50/60 py-3.5 pl-12 pr-4 text-sm font-medium outline-none transition-all duration-200 placeholder:font-normal placeholder:text-zinc-400 hover:border-zinc-300 focus:border-teal-500 focus:bg-white focus:shadow-md focus:shadow-teal-500/8 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-800/40 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:hover:border-zinc-600 dark:focus:border-teal-500 dark:focus:bg-zinc-800/80 dark:focus:ring-teal-500/10"
+                  />
+                </div>
+              </div>
+
+              {/* Password */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="password"
+                    className={`text-sm font-semibold transition-colors duration-200 ${focusedField === "password"
+                        ? "text-teal-600 dark:text-teal-400"
+                        : "text-zinc-700 dark:text-zinc-300"
+                      }`}
+                  >
+                    Password
+                  </label>
+                  <Link
+                    href="/auth/forgot-password"
+                    className="text-xs font-semibold text-teal-600 transition-colors duration-200 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
+                <div className="group relative">
+                  <div
+                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${focusedField === "password"
+                        ? "text-teal-500"
+                        : "text-zinc-400 dark:text-zinc-500"
+                      }`}
+                  >
+                    <Lock className="h-[18px] w-[18px]" />
+                  </div>
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder="••••••••"
+                    onFocus={() => setFocusedField("password")}
+                    onBlur={() => setFocusedField(null)}
+                    className="w-full rounded-2xl border border-zinc-200 bg-zinc-50/60 py-3.5 pl-12 pr-4 text-sm font-medium outline-none transition-all duration-200 placeholder:font-normal placeholder:text-zinc-400 hover:border-zinc-300 focus:border-teal-500 focus:bg-white focus:shadow-md focus:shadow-teal-500/8 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-800/40 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:hover:border-zinc-600 dark:focus:border-teal-500 dark:focus:bg-zinc-800/80 dark:focus:ring-teal-500/10"
+                  />
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-3">
+                <Button
+                  type="submit"
+                  loading={loading}
+                  className="group w-full rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-600 py-3.5 text-sm font-bold shadow-lg shadow-teal-500/25 transition-all duration-300 hover:from-teal-600 hover:to-emerald-700 hover:shadow-xl hover:shadow-teal-500/30 active:scale-[0.98]"
                 >
-                  Forgot password?
-                </Link>
+                  Sign In
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
               </div>
-              <div className="group relative">
-                <Lock
-                  className={`absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-200 ${
-                    focusedField === "password"
-                      ? "text-teal-500"
-                      : "text-zinc-400 dark:text-zinc-500"
-                  }`}
-                />
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder="••••••••"
-                  onFocus={() => setFocusedField("password")}
-                  onBlur={() => setFocusedField(null)}
-                  className="w-full rounded-xl border border-zinc-200 bg-zinc-50/50 py-3 pl-11 pr-4 text-sm outline-none transition-all duration-200 placeholder:text-zinc-400 hover:border-zinc-300 focus:border-teal-500 focus:bg-white focus:shadow-sm focus:shadow-teal-500/10 focus:ring-2 focus:ring-teal-500/20 dark:border-zinc-700 dark:bg-zinc-800/50 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:hover:border-zinc-600 dark:focus:border-teal-500 dark:focus:bg-zinc-800"
-                />
-              </div>
+            </form>
+
+            {/* Trust badge */}
+            <div className="mt-6 flex items-center justify-center gap-1.5 text-[11px] text-zinc-400 dark:text-zinc-500">
+              <Shield className="h-3 w-3" />
+              <span>Protected by industry-standard encryption</span>
             </div>
 
-            {/* Submit Button */}
-            <div className="pt-2">
-              <Button
-                type="submit"
-                loading={loading}
-                className="group w-full rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 py-3 text-sm font-semibold shadow-lg shadow-teal-500/25 transition-all duration-300 hover:from-teal-600 hover:to-emerald-700 hover:shadow-xl hover:shadow-teal-500/30 active:scale-[0.98]"
+            {/* Divider before footer */}
+            <div className="my-6 border-t border-zinc-100 dark:border-zinc-800/60" />
+
+            {/* Footer Link */}
+            <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
+              Don&apos;t have an account?{" "}
+              <Link
+                href="/auth/signup"
+                className="font-bold text-teal-600 underline-offset-4 transition-all duration-200 hover:text-teal-500 hover:underline dark:text-teal-400 dark:hover:text-teal-300"
               >
-                Sign In
-                <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Button>
-            </div>
-          </form>
-
-          {/* Footer Link */}
-          <p className="mt-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
-            Don&apos;t have an account?{" "}
-            <Link
-              href="/auth/signup"
-              className="font-semibold text-teal-600 underline-offset-4 transition-all duration-200 hover:text-teal-500 hover:underline dark:text-teal-400 dark:hover:text-teal-300"
-            >
-              Sign up
-            </Link>
-          </p>
+                Create one now
+                <ArrowRight className="ml-0.5 inline h-3.5 w-3.5" />
+              </Link>
+            </p>
+          </div>
         </div>
-
-        {/* Bottom decorative text */}
-        <p className="mt-6 text-center text-xs text-zinc-400 dark:text-zinc-600">
-          Protected by enterprise-grade security{" "}
-          <span className="inline-block">🔒</span>
-        </p>
       </div>
     </div>
   );

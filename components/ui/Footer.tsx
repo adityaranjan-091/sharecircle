@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
               <Image
-                src="/logo.png"
+                src="/logo.svg"
                 alt="ShareCircle Logo"
                 width={32}
                 height={32}

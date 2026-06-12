@@ -103,16 +103,16 @@ export default function SignUpPage() {
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-12">
       {/* Animated background elements */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] animate-pulse rounded-full bg-teal-400/8 blur-3xl dark:bg-teal-400/[0.03]" />
-        <div className="absolute -right-40 top-1/4 h-[400px] w-[400px] animate-pulse rounded-full bg-cyan-400/8 blur-3xl [animation-delay:1s] dark:bg-cyan-400/[0.03]" />
-        <div className="absolute -bottom-40 left-1/4 h-[450px] w-[450px] animate-pulse rounded-full bg-emerald-400/8 blur-3xl [animation-delay:2s] dark:bg-emerald-400/[0.03]" />
+        <div className="absolute -left-40 -top-40 h-125 w-125 animate-pulse rounded-full bg-teal-400/8 blur-3xl dark:bg-teal-400/3" />
+        <div className="absolute -right-40 top-1/4 h-100 w-100 animate-pulse rounded-full bg-cyan-400/8 blur-3xl [animation-delay:1s] dark:bg-cyan-400/3" />
+        <div className="absolute -bottom-40 left-1/4 h-112.5 w-112.5 animate-pulse rounded-full bg-emerald-400/8 blur-3xl [animation-delay:2s] dark:bg-emerald-400/3" />
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNhMWExYWEiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMSIvPjwvZz48L2c+PC9zdmc+')] opacity-60" />
       </div>
 
-      <div className="relative w-full max-w-[440px]">
+      <div className="relative w-full max-w-110">
         {/* Outer glow behind the card */}
-        <div className="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-teal-500/10 via-transparent to-emerald-500/10 blur-2xl dark:from-teal-500/5 dark:to-emerald-500/5" />
+        <div className="pointer-events-none absolute -inset-4 rounded-4xl bg-linear-to-br from-teal-500/10 via-transparent to-emerald-500/10 blur-2xl dark:from-teal-500/5 dark:to-emerald-500/5" />
 
         {/* Card */}
         <div className="relative overflow-hidden rounded-3xl border border-zinc-200/70 bg-white/90 shadow-2xl shadow-zinc-300/40 backdrop-blur-2xl dark:border-zinc-800/70 dark:bg-zinc-900/90 dark:shadow-zinc-950/60">
@@ -121,12 +121,12 @@ export default function SignUpPage() {
             <div className="mb-10 text-center">
               <div className="group relative mx-auto flex h-20 w-20 items-center justify-center">
                 {/* Glow ring */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-teal-400 to-emerald-500 opacity-20 blur-xl transition-all duration-500 group-hover:opacity-35 group-hover:blur-2xl" />
+                <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-teal-400 to-emerald-500 opacity-20 blur-xl transition-all duration-500 group-hover:opacity-35 group-hover:blur-2xl" />
                 {/* Gradient border wrapper */}
-                <div className="relative rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 p-[2.5px] shadow-xl shadow-teal-500/25 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
+                <div className="relative rounded-2xl bg-linear-to-br from-teal-500 to-emerald-600 p-[2.5px] shadow-xl shadow-teal-500/25 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-teal-500/30">
                   <div className="rounded-[13px] bg-white p-1.5 dark:bg-zinc-900">
                     <Image
-                      src="/logo.png"
+                      src="/logo.svg"
                       alt="ShareCircle Logo"
                       width={56}
                       height={56}
@@ -209,21 +209,23 @@ export default function SignUpPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="name"
-                  className={`text-sm font-semibold transition-colors duration-200 ${focusedField === "name"
-                    ? "text-teal-600 dark:text-teal-400"
-                    : "text-zinc-700 dark:text-zinc-300"
-                    }`}
+                  className={`text-sm font-semibold transition-colors duration-200 ${
+                    focusedField === "name"
+                      ? "text-teal-600 dark:text-teal-400"
+                      : "text-zinc-700 dark:text-zinc-300"
+                  }`}
                 >
                   Full Name
                 </label>
                 <div className="group relative">
                   <div
-                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${focusedField === "name"
-                      ? "text-teal-500"
-                      : "text-zinc-400 dark:text-zinc-500"
-                      }`}
+                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${
+                      focusedField === "name"
+                        ? "text-teal-500"
+                        : "text-zinc-400 dark:text-zinc-500"
+                    }`}
                   >
-                    <User className="h-[18px] w-[18px]" />
+                    <User className="h-4.5 w-4.5" />
                   </div>
                   <input
                     id="name"
@@ -242,21 +244,23 @@ export default function SignUpPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="email"
-                  className={`text-sm font-semibold transition-colors duration-200 ${focusedField === "email"
-                    ? "text-teal-600 dark:text-teal-400"
-                    : "text-zinc-700 dark:text-zinc-300"
-                    }`}
+                  className={`text-sm font-semibold transition-colors duration-200 ${
+                    focusedField === "email"
+                      ? "text-teal-600 dark:text-teal-400"
+                      : "text-zinc-700 dark:text-zinc-300"
+                  }`}
                 >
                   Email address
                 </label>
                 <div className="group relative">
                   <div
-                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${focusedField === "email"
-                      ? "text-teal-500"
-                      : "text-zinc-400 dark:text-zinc-500"
-                      }`}
+                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${
+                      focusedField === "email"
+                        ? "text-teal-500"
+                        : "text-zinc-400 dark:text-zinc-500"
+                    }`}
                   >
-                    <Mail className="h-[18px] w-[18px]" />
+                    <Mail className="h-4.5 w-4.5" />
                   </div>
                   <input
                     id="email"
@@ -275,21 +279,23 @@ export default function SignUpPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="password"
-                  className={`text-sm font-semibold transition-colors duration-200 ${focusedField === "password"
-                    ? "text-teal-600 dark:text-teal-400"
-                    : "text-zinc-700 dark:text-zinc-300"
-                    }`}
+                  className={`text-sm font-semibold transition-colors duration-200 ${
+                    focusedField === "password"
+                      ? "text-teal-600 dark:text-teal-400"
+                      : "text-zinc-700 dark:text-zinc-300"
+                  }`}
                 >
                   Password
                 </label>
                 <div className="group relative">
                   <div
-                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${focusedField === "password"
-                      ? "text-teal-500"
-                      : "text-zinc-400 dark:text-zinc-500"
-                      }`}
+                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${
+                      focusedField === "password"
+                        ? "text-teal-500"
+                        : "text-zinc-400 dark:text-zinc-500"
+                    }`}
                   >
-                    <Lock className="h-[18px] w-[18px]" />
+                    <Lock className="h-4.5 w-4.5" />
                   </div>
                   <input
                     id="password"
@@ -309,21 +315,23 @@ export default function SignUpPage() {
               <div className="space-y-2">
                 <label
                   htmlFor="confirmPassword"
-                  className={`text-sm font-semibold transition-colors duration-200 ${focusedField === "confirmPassword"
-                    ? "text-teal-600 dark:text-teal-400"
-                    : "text-zinc-700 dark:text-zinc-300"
-                    }`}
+                  className={`text-sm font-semibold transition-colors duration-200 ${
+                    focusedField === "confirmPassword"
+                      ? "text-teal-600 dark:text-teal-400"
+                      : "text-zinc-700 dark:text-zinc-300"
+                  }`}
                 >
                   Confirm Password
                 </label>
                 <div className="group relative">
                   <div
-                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${focusedField === "confirmPassword"
-                      ? "text-teal-500"
-                      : "text-zinc-400 dark:text-zinc-500"
-                      }`}
+                    className={`pointer-events-none absolute left-0 top-0 flex h-full w-12 items-center justify-center rounded-l-2xl transition-colors duration-200 ${
+                      focusedField === "confirmPassword"
+                        ? "text-teal-500"
+                        : "text-zinc-400 dark:text-zinc-500"
+                    }`}
                   >
-                    <Lock className="h-[18px] w-[18px]" />
+                    <Lock className="h-4.5 w-4.5" />
                   </div>
                   <input
                     id="confirmPassword"
@@ -344,7 +352,7 @@ export default function SignUpPage() {
                 <Button
                   type="submit"
                   loading={loading}
-                  className="group w-full rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-600 py-3.5 text-sm font-bold shadow-lg shadow-teal-500/25 transition-all duration-300 hover:from-teal-600 hover:to-emerald-700 hover:shadow-xl hover:shadow-teal-500/30 active:scale-[0.98]"
+                  className="group w-full rounded-2xl bg-linear-to-r from-teal-500 to-emerald-600 py-3.5 text-sm font-bold shadow-lg shadow-teal-500/25 transition-all duration-300 hover:from-teal-600 hover:to-emerald-700 hover:shadow-xl hover:shadow-teal-500/30 active:scale-[0.98]"
                 >
                   Create Account
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

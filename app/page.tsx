@@ -9,11 +9,9 @@ import {
   CheckCircle,
   Shield,
   MessageCircle,
-  Clock,
   Headphones,
   Scale,
   Calendar,
-  type LucideIcon,
 } from "lucide-react";
 import FAQ from "@/components/ui/FAQ";
 
@@ -143,7 +141,7 @@ export default function Home() {
   return (
     <div className="space-y-28 pb-24">
       {/* ───── Hero ───── */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-600 via-teal-700 to-emerald-800 px-6 py-20 text-white sm:px-12 sm:py-28 lg:py-36">
+      <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-teal-600 via-teal-700 to-emerald-800 px-6 py-20 text-white sm:px-12 sm:py-28 lg:py-36">
         {/* decorative dots */}
         <div className="pointer-events-none absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iNCIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
 
@@ -164,7 +162,7 @@ export default function Home() {
             <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl lg:text-7xl">
               Borrow from neighbors,
               <br />
-              <span className="bg-gradient-to-r from-teal-200 via-emerald-200 to-cyan-200 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-teal-200 via-emerald-200 to-cyan-200 bg-clip-text text-transparent">
                 not from stores.
               </span>
             </h1>
@@ -257,9 +255,9 @@ export default function Home() {
         <div className="grid gap-8 md:grid-cols-3">
           {STEPS.map((s, i) => (
             <div key={s.step} className="relative">
-              <div className="group flex h-full flex-col rounded-2xl border border-teal-200/40 bg-gradient-to-br from-teal-50/80 to-emerald-50/80 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-100/40 dark:border-teal-800/30 dark:from-teal-950/40 dark:to-emerald-950/40 dark:hover:shadow-teal-900/20">
+              <div className="group flex h-full flex-col rounded-2xl border border-teal-200/40 bg-linear-to-br from-teal-50/80 to-emerald-50/80 p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-100/40 dark:border-teal-800/30 dark:from-teal-950/40 dark:to-emerald-950/40 dark:hover:shadow-teal-900/20">
                 {/* step number */}
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-600 to-emerald-600 text-lg font-bold text-white shadow-lg shadow-teal-600/25 transition-transform duration-300 group-hover:scale-110">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-teal-600 to-emerald-600 text-lg font-bold text-white shadow-lg shadow-teal-600/25 transition-transform duration-300 group-hover:scale-110">
                   {s.step}
                 </div>
                 {/* dashed connector line */}
@@ -285,7 +283,7 @@ export default function Home() {
       </section>
 
       {/* ───── Benefits / Trust ───── */}
-      <section className="space-y-10 overflow-hidden rounded-3xl border border-zinc-200/60 bg-gradient-to-br from-zinc-50 via-white to-zinc-100/60 p-8 shadow-sm dark:border-zinc-800/60 dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-900/60 sm:p-14">
+      <section className="space-y-10 overflow-hidden rounded-3xl border border-zinc-200/60 bg-linear-to-br from-zinc-50 via-white to-zinc-100/60 p-8 shadow-sm dark:border-zinc-800/60 dark:from-zinc-900 dark:via-zinc-900 dark:to-zinc-900/60 sm:p-14">
         <SectionHeading
           title="Trusted by Our Community"
           subtitle="Safety and trust are at the core of everything we do."
@@ -322,7 +320,7 @@ export default function Home() {
       </section>
 
       {/* ───── Final CTA ───── */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-600 px-6 py-16 text-center text-white sm:px-12 sm:py-24">
+      <section className="relative overflow-hidden rounded-3xl bg-linear-to-br from-emerald-600 via-teal-600 to-cyan-600 px-6 py-16 text-center text-white sm:px-12 sm:py-24">
         {/* glow */}
         <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-emerald-400/10 blur-3xl" />

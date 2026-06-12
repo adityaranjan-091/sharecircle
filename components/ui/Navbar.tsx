@@ -48,16 +48,16 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-zinc-200/60 bg-white/80 shadow-sm shadow-zinc-200/30 backdrop-blur-2xl dark:border-zinc-800/60 dark:bg-zinc-950/80 dark:shadow-zinc-900/30">
-      <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-17 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Logo */}
         <Link
           href="/"
           className="group flex items-center gap-3 transition-all duration-300 hover:opacity-90"
         >
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-teal-500 to-emerald-600 p-[3px] shadow-lg shadow-teal-500/20 ring-1 ring-teal-400/30 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-teal-500/30 group-hover:ring-teal-400/50 dark:from-teal-600 dark:to-emerald-700 dark:shadow-teal-800/30 dark:ring-teal-700/40">
+          <div className="relative overflow-hidden rounded-2xl bg-linear-to-br from-teal-500 to-emerald-600 p-0.75 shadow-lg shadow-teal-500/20 ring-1 ring-teal-400/30 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-teal-500/30 group-hover:ring-teal-400/50 dark:from-teal-600 dark:to-emerald-700 dark:shadow-teal-800/30 dark:ring-teal-700/40">
             <div className="rounded-[13px] bg-white p-1 dark:bg-zinc-900">
               <Image
-                src="/logo.png"
+                src="/logo.svg"
                 alt="ShareCircle Logo"
                 width={34}
                 height={34}
@@ -67,10 +67,10 @@ export default function Navbar() {
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-extrabold tracking-tight leading-none">
-              <span className="bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent dark:from-teal-400 dark:to-teal-500">
+              <span className="bg-linear-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent dark:from-teal-400 dark:to-teal-500">
                 Share
               </span>
-              <span className="bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-500">
+              <span className="bg-linear-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent dark:from-emerald-400 dark:to-emerald-500">
                 Circle
               </span>
             </span>
@@ -130,7 +130,7 @@ export default function Navbar() {
             <>
               {/* User info */}
               <div className="hidden items-center gap-2.5 rounded-2xl bg-zinc-50/80 px-3 py-2 ring-1 ring-zinc-200/60 transition-colors duration-200 hover:bg-zinc-100/60 dark:bg-zinc-900/80 dark:ring-zinc-800/60 dark:hover:bg-zinc-800/40 sm:flex">
-                <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 text-sm font-bold text-white shadow-md shadow-teal-500/20 ring-2 ring-white dark:ring-zinc-900">
+                <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full bg-linear-to-br from-teal-500 to-emerald-600 text-sm font-bold text-white shadow-md shadow-teal-500/20 ring-2 ring-white dark:ring-zinc-900">
                   {currentUser.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -176,7 +176,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/auth/signup"
-                className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-teal-600/25 transition-all duration-300 hover:from-teal-700 hover:to-emerald-700 hover:shadow-xl hover:shadow-teal-600/30 active:scale-[0.97]"
+                className="flex items-center gap-2 rounded-xl bg-linear-to-r from-teal-600 to-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-teal-600/25 transition-all duration-300 hover:from-teal-700 hover:to-emerald-700 hover:shadow-xl hover:shadow-teal-600/30 active:scale-[0.97]"
               >
                 <User className="h-3.5 w-3.5" />
                 <span>Sign Up</span>
@@ -202,11 +202,11 @@ export default function Navbar() {
               )}
             >
               {isActive && (
-                <span className="absolute -top-px left-1/2 h-[3px] w-6 -translate-x-1/2 rounded-full bg-gradient-to-r from-teal-500 to-emerald-500 dark:from-teal-400 dark:to-emerald-400" />
+                <span className="absolute -top-px left-1/2 h-0.75 w-6 -translate-x-1/2 rounded-full bg-linear-to-r from-teal-500 to-emerald-500 dark:from-teal-400 dark:to-emerald-400" />
               )}
               <Icon
                 className={cn(
-                  "h-[18px] w-[18px] transition-all duration-200",
+                  "h-4.5 w-4.5 transition-all duration-200",
                   isActive && "drop-shadow-sm",
                 )}
                 strokeWidth={isActive ? 2.5 : 2}

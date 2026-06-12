@@ -6,7 +6,7 @@
 
 A community-driven platform that connects neighbors for item sharing — saving money, reducing waste, and strengthening local bonds.
 
-<img width="274" height="279" alt="ShareCircle Logo" src="https://github.com/user-attachments/assets/e3085077-f12d-4e53-9e73-c08eb7bff021" />
+<img width="2752" height="1536" alt="sharecircle2" src="https://github.com/user-attachments/assets/8221655f-260b-4bbc-be52-ac9730ecd114" />
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
